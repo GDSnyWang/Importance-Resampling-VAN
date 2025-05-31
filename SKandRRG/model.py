@@ -69,10 +69,6 @@ class NADE(BaseModel):
     def _forward(self, x):
         logits_list = []
         
-        #####################################
-        # i从0到n-1，那[:i]取不到第一位和最后一位???
-        #####################################
-        
         for i in range(self.n):
             h_i = torch.sigmoid(self.c + torch.einsum("hi,bi->bh", self.W[:, :i], x[:, :i]))
             logits = self.b[i] + torch.einsum("h,bh->b", self.V[i, :], h_i)
